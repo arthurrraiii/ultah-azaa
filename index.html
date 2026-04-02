@@ -1,0 +1,93 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>for azaa</title>
+  <style>
+    body { margin:0; font-family:'Segoe UI',sans-serif; background:black; color:white; overflow:hidden; }
+    .slide { display:none; height:100vh; justify-content:center; align-items:center; text-align:center; padding:20px; position:absolute; width:100%; }
+    .active { display:flex; animation: fade 1s ease; }
+    @keyframes fade { from {opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
+    button { padding:10px 20px; border:none; border-radius:10px; background:white; color:black; cursor:pointer; margin-top:20px; }
+    .bg { position:absolute; width:100%; height:100%; object-fit:cover; filter: blur(8px) brightness(0.5); z-index:-1; }
+  </style>
+</head>
+<body><img src="azaa.jpg" class="bg"><audio id="bgm" loop>
+  <source src="aku-milikmu.mp3" type="audio/mpeg">
+</audio><div class="slide active">
+  <div>
+    <h1 class="type" data-text="happy birthday azaa 🎂"></h1>
+    <p class="type" data-text="hari ini harusnya jadi hari yang bahagia buat kamu..."></p>
+    <button onclick="nextSlide()">lanjut</button>
+  </div>
+</div><div class="slide">
+  <div>
+    <p class="type" data-text="jujur, aku masih sering keinget azaa... hal-hal kecil yang dulu keliatannya biasa aja, tapi sekarang malah susah banget dilupain."></p>
+    <button onclick="nextSlide()">lanjut</button>
+  </div>
+</div><div class="slide">
+  <div>
+    <p class="type" data-text="aku pernah ngerasa deket banget sama azaa, dan entah kenapa, perasaan itu kayak belum bener-bener pergi sampai sekarang."></p>
+    <button onclick="nextSlide()">lanjut</button>
+  </div>
+</div><div class="slide">
+  <div>
+    <p class="type" data-text="aku gak minta apa-apa dari azaa, aku cuma pengen azaa tau… kalau di sini masih ada seseorang yang diam-diam masih nyimpen rasa itu."></p>
+    <button onclick="nextSlide()">lanjut</button>
+  </div>
+</div><div class="slide">
+  <div>
+    <p class="type" data-text="di hari ulang tahun kamu ini, aku cuma pengen kamu bahagia. semoga semua yang kamu harapin pelan-pelan tercapai, semoga kamu selalu dikelilingi orang-orang baik, dan semoga hidup kamu selalu dipenuhi hal-hal yang bikin kamu senyum."></p>
+    <button onclick="nextSlide()">lanjut</button>
+  </div>
+</div><div class="slide">
+  <div>
+    <p class="type" data-text="kalau suatu hari kamu ngerasa capek, atau ngerasa sendirian, aku harap kamu inget… aku pernah ada, dan mungkin masih ada. bukan buat maksa balik, cuma… kalau suatu saat semesta kasih kesempatan lagi, aku gak akan nyia-nyiain itu. dan kalau pun engga, aku tetap berharap kamu bahagia… walaupun bukan sama aku."></p>
+  </div>
+</div><script>
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const music = document.getElementById('bgm');
+
+window.onload = () => {
+  music.play().catch(() => {
+    document.body.addEventListener('click', () => {
+      music.play();
+    }, { once: true });
+  });
+  startTyping(slides[currentSlide]);
+};
+
+function typeEffect(element, text, speed = 40) {
+  let i = 0;
+  element.textContent = "";
+  function typing() {
+    if (i < text.length) {
+      element.textContent += text.charAt(i);
+      i++;
+      setTimeout(typing, speed);
+    }
+  }
+  typing();
+}
+
+function startTyping(slide) {
+  const elements = slide.querySelectorAll('.type');
+  elements.forEach((el, index) => {
+    const text = el.getAttribute('data-text');
+    setTimeout(() => {
+      typeEffect(el, text);
+    }, index * 800);
+  });
+}
+
+function nextSlide() {
+  slides[currentSlide].classList.remove('active');
+  currentSlide++;
+  if (slides[currentSlide]) {
+    slides[currentSlide].classList.add('active');
+    startTyping(slides[currentSlide]);
+  }
+}
+</script></body>
+</html>
